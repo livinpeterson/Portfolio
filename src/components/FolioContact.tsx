@@ -48,22 +48,22 @@ export const FolioContact: React.FC = () => {
 
             <div className="flex flex-col gap-2 font-mono text-xs text-slate-300">
               <a
-                href="mailto:livinmannaanalytics@gmail.com"
+                href="mailto:livinpeterson@gmail.com"
                 className="flex items-center gap-2 hover:text-[#FF4D2D] transition-colors"
               >
                 <Mail className="w-3.5 h-3.5 text-[#FF4D2D]" />
-                <span>livinmannaanalytics@gmail.com</span>
+                <span>livinpeterson@gmail.com</span>
               </a>
               <a
-                href="tel:+919361664184"
+                href="tel:+918870724190"
                 className="flex items-center gap-2 hover:text-[#FF4D2D] transition-colors"
               >
                 <Phone className="w-3.5 h-3.5 text-[#FF4D2D]" />
-                <span>+91 9361664184</span>
+                <span>+91 8870724190</span>
               </a>
               <div className="flex items-center gap-2 text-slate-400">
                 <MapPin className="w-3.5 h-3.5 text-[#FF4D2D]" />
-                <span>Chennai, India (Remote Worldwide)</span>
+                <span>Nagercoil, Tamilnadu (Remote Worldwide)</span>
               </div>
             </div>
           </div>
@@ -85,7 +85,7 @@ export const FolioContact: React.FC = () => {
             </p>
             <div className="pt-2 flex justify-center gap-4">
               <a
-                href={`mailto:livinmannaanalytics@gmail.com?subject=DevOps%20Inquiry%20from%20${encodeURIComponent(formData.name)}&body=${encodeURIComponent(formData.message || 'Hi Livingston, I would like to discuss infrastructure optimization.')}`}
+                href={`mailto:livinpeterson@gmail.com?subject=DevOps%20Inquiry%20from%20${encodeURIComponent(formData.name)}&body=${encodeURIComponent(formData.message || 'Hi Livingston, I would like to discuss infrastructure optimization.')}`}
                 className="coral-btn inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-semibold uppercase tracking-wider"
               >
                 <span>Send Direct Email Copy</span>

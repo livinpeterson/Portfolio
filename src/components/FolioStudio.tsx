@@ -15,7 +15,7 @@ export const FolioStudio: React.FC = () => {
 
       <div className="relative z-10 flex flex-col items-center max-w-3xl mx-auto">
         <span className="font-mono text-xs text-slate-400 uppercase tracking-widest block mb-6">
-          DEVOPS &amp; CLOUD INFRASTRUCTURE // CHENNAI, INDIA
+          DEVOPS &amp; CLOUD INFRASTRUCTURE // NAGERCOIL, TAMILNADU
         </span>
 
         {/* Central Floating Portrait Card */}
@@ -48,19 +48,19 @@ export const FolioStudio: React.FC = () => {
         {/* Quick Contact & Resume Action Badges */}
         <div className="flex flex-wrap items-center justify-center gap-3">
           <a
-            href="mailto:livinmannaanalytics@gmail.com"
+            href="mailto:livinpeterson@gmail.com"
             className="glass-pill inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-xs font-mono text-slate-300 hover:text-white transition-colors"
           >
             <Mail className="w-3.5 h-3.5 text-[#FF4D2D]" />
-            <span>livinmannaanalytics@gmail.com</span>
+            <span>livinpeterson@gmail.com</span>
           </a>
 
           <a
-            href="tel:+919361664184"
+            href="tel:+918870724190"
             className="glass-pill inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-xs font-mono text-slate-300 hover:text-white transition-colors"
           >
             <Phone className="w-3.5 h-3.5 text-[#FF4D2D]" />
-            <span>+91 9361664184</span>
+            <span>+91 8870724190</span>
           </a>
 
           <a

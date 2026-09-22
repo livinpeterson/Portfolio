@@ -11,7 +11,6 @@ import { FolioHero } from './components/FolioHero';
 import { FolioAbout } from './components/FolioAbout';
 import { FolioProjects } from './components/FolioProjects';
 import { FolioWorkflow } from './components/FolioWorkflow';
-import { FolioPalette } from './components/FolioPalette';
 import { FolioStats } from './components/FolioStats';
 import { FolioStudio } from './components/FolioStudio';
 import { FolioTestimonials } from './components/FolioTestimonials';
@@ -70,9 +69,6 @@ export default function App() {
 
             {/* Workflow Plan: 2-week design sprint */}
             <FolioWorkflow />
-
-            {/* Color Palette section */}
-            <FolioPalette />
 
             {/* Stats: 65% / $30B */}
             <FolioStats />

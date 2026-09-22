@@ -77,7 +77,7 @@ export const FolioFooter: React.FC<FolioFooterProps> = ({
               </li>
               <li>
                 <button
-                  onClick={() => onNavigateSection('palette')}
+                  onClick={() => onNavigateSection('stats')}
                   className="hover:text-white transition-colors"
                 >
                   Telemetry
@@ -104,7 +104,7 @@ export const FolioFooter: React.FC<FolioFooterProps> = ({
               </li>
               <li>
                 <a
-                  href="mailto:livinmannaanalytics@gmail.com"
+                  href="mailto:livinpeterson@gmail.com"
                   className="hover:text-white transition-colors"
                 >
                   Direct Email
@@ -112,10 +112,10 @@ export const FolioFooter: React.FC<FolioFooterProps> = ({
               </li>
               <li>
                 <a
-                  href="tel:+919361664184"
+                  href="tel:+918870724190"
                   className="hover:text-white transition-colors"
                 >
-                  +91 9361664184
+                  +91 8870724190
                 </a>
               </li>
             </ul>
@@ -127,13 +127,13 @@ export const FolioFooter: React.FC<FolioFooterProps> = ({
               DIRECT DISPATCH
             </span>
             <a
-              href="mailto:livinmannaanalytics@gmail.com"
+              href="mailto:livinpeterson@gmail.com"
               className="text-white hover:text-[#FF4D2D] font-medium block transition-colors break-all"
             >
-              livinmannaanalytics@gmail.com
+              livinpeterson@gmail.com
             </a>
             <span className="text-slate-400 block">
-              Chennai, Tamil Nadu, India <br />
+              Nagercoil, Tamilnadu, India <br />
               Open to Worldwide Remote Roles
             </span>
           </div>

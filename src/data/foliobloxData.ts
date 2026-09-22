@@ -111,36 +111,6 @@ export const WORKFLOW_MILESTONES = [
   { label: 'Atomic Nginx Reload & Live Cutover', duration: '15s', x: '68%', y: '75%' },
 ];
 
-export const COLOR_PALETTE_ITEMS = [
-  {
-    name: 'Dark Accent',
-    hex: '#1E1E28',
-    rgb: '30 30 40',
-    opacity: '100%',
-    role: 'Used for terminal consoles, server telemetry cards, and log inspectors for layered depth.',
-    sampleBg: '#1E1E28',
-    border: 'border-white/10'
-  },
-  {
-    name: 'Soft White',
-    hex: '#FFFFFF',
-    rgb: '255 255 255',
-    opacity: '100%',
-    role: 'Used for code syntax, terminal output, and primary labels for crisp readability in dark environments.',
-    sampleBg: '#FFFFFF',
-    border: 'border-white/20'
-  },
-  {
-    name: 'Deep Background',
-    hex: '#0A0D14',
-    rgb: '10 13 20',
-    opacity: '100%',
-    role: 'Used as the foundational night-ops base color, minimizing eye strain during extended infrastructure monitoring.',
-    sampleBg: '#0A0D14',
-    border: 'border-white/10'
-  },
-];
-
 export const STATS_ITEMS = [
   {
     label: 'PRODUCTION CLUSTER UPTIME',

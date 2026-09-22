@@ -28,7 +28,6 @@ export const FolioNavbar: React.FC<FolioNavbarProps> = ({
     { label: 'About', action: () => { setActiveView('home'); onNavigateSection('about'); } },
     { label: 'Deployments', action: () => { setActiveView(activeView === 'projects' ? 'home' : 'projects'); } },
     { label: 'Pipeline', action: () => { setActiveView('home'); onNavigateSection('workflow'); } },
-    { label: 'Architecture', action: () => { setActiveView('home'); onNavigateSection('palette'); } },
     { label: 'Telemetry', action: () => { setActiveView('home'); onNavigateSection('stats'); } },
     { label: 'Profile', action: () => { setActiveView('home'); onNavigateSection('studio'); } },
     { label: 'Contact', action: () => { setActiveView('home'); onNavigateSection('contact'); } },
