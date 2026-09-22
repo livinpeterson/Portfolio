@@ -1,0 +1,119 @@
+================================================================================
+LIVINGSTON PETER — DEVOPS ENGINEER & CLUSTER INFRASTRUCTURE SPECIALIST
+================================================================================
+Location: Nagercoil, Tamil Nadu, India
+Phone: +91 88707 24190
+Email: livinpeterson@gmail.com
+LinkedIn: https://www.linkedin.com/in/livingston-peter-58593916b
+
+--------------------------------------------------------------------------------
+PROFESSIONAL SUMMARY
+--------------------------------------------------------------------------------
+DevOps Engineer with comprehensive hands-on production experience in Linux server
+administration, Docker containerization, GitHub Actions CI/CD workflows, and Nginx
+reverse-proxy architectures. Proven background as a Database Engineer with deep
+expertise in PostgreSQL stored procedures, query optimization, and automated data
+migration pipelines. Track record of zero-downtime server migrations, root-cause
+analysis on production incidents (SEV-1/2/3), and continuous observability using
+Prometheus and Grafana.
+
+--------------------------------------------------------------------------------
+CORE TECHNICAL COMPETENCIES
+--------------------------------------------------------------------------------
+• DevOps & CI/CD: Docker (Multi-stage builds), GitHub Actions, CI/CD Pipelines,
+  Zero-Downtime Deployments, Container Troubleshooting, Git & GitHub.
+• Monitoring & Observability: Prometheus, Grafana, Alertmanager, Log Analysis,
+  Incident Response & Triage, Slack/Jira Alert Integration.
+• Infrastructure & Linux: Linux Server Administration (Ubuntu/Debian),
+  Reverse Proxy (Nginx), DNS & Cloudflare Cutovers, SSL/TLS 1.3 Termination,
+  Bash Scripting, UFW / Network Security.
+• Databases & Storage: PostgreSQL (Stored Procedures, Functions, Indexing),
+  MySQL, Database Migration Pipelines (0% Data Loss), Query Optimization.
+• Automation & Backend: Python Scripting, Django REST Framework, Node.js,
+  Postman Automated Testing, RESTful API Design.
+• Cloud-Native (In Progress / Active Expansion): AWS Fundamentals (EC2, S3, RDS,
+  ECS/Fargate, CloudWatch), Kubernetes, Terraform.
+
+--------------------------------------------------------------------------------
+PROFESSIONAL EXPERIENCE
+--------------------------------------------------------------------------------
+DevOps Engineer
+Manna Analytics Private Limited | Nagercoil, Tamil Nadu, India
+May 2025 — Present (Full-time, On-site)
+• Designed and implemented CI/CD pipelines using GitHub Actions to automate build,
+  testing, and deployment workflows, reducing manual release effort significantly.
+• Containerized applications using Docker, ensuring consistent environments across
+  development and production, resolving container-level port and process collisions.
+• Configured Nginx as a reverse proxy for production deployments, implementing
+  request routing between application microservices with zero downtime.
+• Administered Linux servers supporting production infrastructure, monitoring system
+  health with Prometheus, Grafana, and Alertmanager.
+• Performed production incident troubleshooting and root-cause analysis using logs
+  and metrics, authoring hotfixes and documenting recurring issues.
+• Coordinated incident tracking, escalation, and cross-functional communication with
+  backend and frontend engineering teams via Jira and Slack.
+
+Database Engineer
+Manna Analytics Private Limited | Nagercoil, Tamil Nadu, India
+January 2024 — May 2025 (Full-time, On-site)
+• Designed and optimized relational database schemas in PostgreSQL and MySQL for
+  scalable backend applications.
+• Developed complex stored procedures and database functions in PostgreSQL to
+  handle critical business logic, financial calculations, and reporting.
+• Integrated database layers with backend APIs built on Django REST Framework and
+  conducted rigorous API testing using Postman.
+• Engineered Python scripts to automate database migration, deduplication, and
+  audit reporting, improving execution reliability and eliminating manual intervention.
+• Formulated automated 5-sheet color-coded Excel audit reports for stakeholder
+  verification with 100% data integrity.
+
+Full Stack Engineer
+Entegation Technologies LLC | United States (Remote / Freelance)
+May 2023 — January 2024
+• Designed and consumed RESTful APIs, implemented server-side business logic, and
+  managed relational databases using PostgreSQL and MySQL for US-based clients.
+• Deployed applications to Linux-based cloud servers and managed source code with
+  Git across the full release lifecycle.
+• Architected full-stack web applications with Node.js, React.js, Angular, Laravel,
+  and PHP with emphasis on backend architecture and data layers.
+
+Full-stack Developer Intern
+MashupStack | Kerala / Tamil Nadu, India
+January 2022 — February 2023
+• Gained hands-on backend experience with Django REST Framework, Laravel, and OOP
+  alongside frontend work in React.js and Angular.
+• Completed structured training in software development best practices, Git
+  version control, and agile workflows across 38+ specialized skills.
+
+--------------------------------------------------------------------------------
+KEY PRODUCTION DEPLOYMENTS & CASE STUDIES
+--------------------------------------------------------------------------------
+1. mannaanalytics.com Zero-Downtime Server Migration:
+   Migrated production infrastructure off a legacy server to a modern VPS end-to-end.
+   Dockerized application microservices, restructured Nginx reverse proxy routing,
+   and cut over DNS via Cloudflare with 0 minutes of user-facing downtime and TLS 1.3.
+
+2. i-kids ERP Automated Data Migration & Audit Pipeline:
+   Built a multi-phase automated Python pipeline to migrate complex subscription
+   order records from legacy spreadsheets into a live PostgreSQL production schema
+   with strict referential integrity, shadow-table collision resolution, and 5-sheet
+   color-coded audit reporting.
+
+3. Automated CI/CD Pipeline Restoration & Deployment Engine:
+   Diagnosed a stalled CI/CD deployment pipeline on GitHub Actions. Rebuilt runner
+   environments, rectified container port assumptions, cleaned dangling layer volumes,
+   and restored automated push-to-deploy with real-time Slack failure notifications.
+
+--------------------------------------------------------------------------------
+EDUCATION & CERTIFICATIONS
+--------------------------------------------------------------------------------
+Bachelor of Engineering in Computer Science and Engineering
+Fatima Michael College of Engineering and Technology | Madurai, India (2017 — 2021)
+• Coursework: Operating Systems, Computer Networks, Database Management Systems,
+  Data Structures & Algorithms, Network Security, Computer Architecture.
+
+Full Stack Development Professional Certification
+MashupStack (Issued February 2024)
+• 38+ Verified Competencies in Python, Django REST Framework, Docker, Linux,
+  PostgreSQL, MySQL, Git, and Modern Web Architectures.
+================================================================================
