@@ -14,6 +14,9 @@ export const AudioController: React.FC<AudioControllerProps> = ({ className = ''
   const filterRef = useRef<BiquadFilterNode | null>(null);
 
   // Initialize or toggle cinematic procedural ambient soundscape
+  // Reference to the HTMLAudioElement that will play a gentle ambient loop
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
   const toggleAudio = () => {
     if (!isPlaying) {
       startSound();
@@ -24,76 +27,27 @@ export const AudioController: React.FC<AudioControllerProps> = ({ className = ''
 
   const startSound = () => {
     try {
-      const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
-      const ctx = new AudioCtx();
-      audioCtxRef.current = ctx;
-
-      const masterGain = ctx.createGain();
-      masterGain.gain.setValueAtTime(0.001, ctx.currentTime);
-      // Smooth fade in to a subtle, warm ambient volume (non-intrusive)
-      masterGain.gain.exponentialRampToValueAtTime(0.08, ctx.currentTime + 2.5);
-      gainNodeRef.current = masterGain;
-
-      // Low-pass cinematic filter
-      const filter = ctx.createBiquadFilter();
-      filter.type = 'lowpass';
-      filter.frequency.setValueAtTime(140, ctx.currentTime);
-      filterRef.current = filter;
-
-      // Primary deep drone oscillator (55Hz, A1)
-      const osc1 = ctx.createOscillator();
-      osc1.type = 'sine';
-      osc1.frequency.setValueAtTime(55, ctx.currentTime);
-      osc1Ref.current = osc1;
-
-      // Secondary warm harmonic oscillator (82.4Hz, E2 fifth)
-      const osc2 = ctx.createOscillator();
-      osc2.type = 'triangle';
-      osc2.frequency.setValueAtTime(82.4, ctx.currentTime);
-      osc2Ref.current = osc2;
-
-      // Slow LFO for cinematic breathing effect
-      const lfo = ctx.createOscillator();
-      lfo.frequency.setValueAtTime(0.12, ctx.currentTime);
-      const lfoGain = ctx.createGain();
-      lfoGain.gain.setValueAtTime(40, ctx.currentTime);
-      lfo.connect(lfoGain);
-      lfoGain.connect(filter.frequency);
-
-      // Routing
-      osc1.connect(filter);
-      osc2.connect(filter);
-      filter.connect(masterGain);
-      masterGain.connect(ctx.destination);
-
-      osc1.start();
-      osc2.start();
-      lfo.start();
-
+      // Use a pre‑recorded gentle ambient file (e.g., soft wind tones)
+      const audio = new Audio('/ambient-wind.mp3');
+      audio.loop = true;
+      // Set a low, soothing volume – user can still adjust the system volume.
+      audio.volume = 0.04;
+      audio.play();
+      audioRef.current = audio;
       setIsPlaying(true);
     } catch (e) {
-      console.warn("AudioContext not supported or blocked", e);
+      console.warn('Failed to play ambient sound', e);
     }
   };
 
   const stopSound = () => {
-    if (gainNodeRef.current && audioCtxRef.current) {
-      const ctx = audioCtxRef.current;
-      gainNodeRef.current.gain.setValueAtTime(gainNodeRef.current.gain.value, ctx.currentTime);
-      gainNodeRef.current.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 1.2);
-      setTimeout(() => {
-        try {
-          osc1Ref.current?.stop();
-          osc2Ref.current?.stop();
-          ctx.close();
-        } catch {
-          // ignore
-        }
-        setIsPlaying(false);
-      }, 1200);
-    } else {
-      setIsPlaying(false);
+    const audio = audioRef.current;
+    if (audio) {
+      audio.pause();
+      audio.currentTime = 0;
+      audioRef.current = null;
     }
+    setIsPlaying(false);
   };
 
   useEffect(() => {
