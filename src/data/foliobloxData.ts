@@ -169,3 +169,34 @@ export const METHODOLOGY_STEPS = [
     description: 'Executing zero-downtime Nginx hot reloads, configuring live healthcheck alarms, and streaming telemetry to Prometheus dashboards for complete operational observability.'
   }
 ];
+
+export const COLOR_PALETTE_ITEMS = [
+  {
+    name: 'Coral Signal',
+    hex: '#FF4D2D',
+    rgb: '255, 77, 45',
+    opacity: '100%',
+    role: 'Primary action beacon, deployment alarms, and high-priority infrastructure status indicators.',
+    sampleBg: '#FF4D2D',
+    border: 'border border-[#FF4D2D]'
+  },
+  {
+    name: 'Midnight Void',
+    hex: '#0A0D14',
+    rgb: '10, 13, 20',
+    opacity: '100%',
+    role: 'Core background backdrop engineered for dark-ops readability and OLED power efficiency.',
+    sampleBg: '#0A0D14',
+    border: 'border border-white/20'
+  },
+  {
+    name: 'Glass Slate',
+    hex: '#1E1E28',
+    rgb: '30, 30, 40',
+    opacity: '70%',
+    role: 'Backdrop for glassmorphic card layers, telemetry HUD containers, and code execution consoles.',
+    sampleBg: '#1E1E28',
+    border: 'border border-white/15'
+  }
+];
+

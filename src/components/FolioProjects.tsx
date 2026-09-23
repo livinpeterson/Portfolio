@@ -8,6 +8,132 @@ interface FolioProjectsProps {
   isStandalonePage?: boolean;
 }
 
+interface TiltProjectCardProps {
+  proj: FolioProject;
+  idx: number;
+  onSelect: () => void;
+}
+
+const TiltProjectCard: React.FC<TiltProjectCardProps> = ({ proj, idx, onSelect }) => {
+  const cardRef = React.useRef<HTMLDivElement | null>(null);
+  const [tilt, setTilt] = React.useState({ x: 0, y: 0 });
+  const [glare, setGlare] = React.useState({ x: 0, y: 0, opacity: 0 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotX = -((y - centerY) / centerY) * 7;
+    const rotY = ((x - centerX) / centerX) * 7;
+
+    setTilt({ x: rotX, y: rotY });
+    setGlare({ x, y, opacity: 1 });
+  };
+
+  const handleMouseLeave = () => {
+    setTilt({ x: 0, y: 0 });
+    setGlare((prev) => ({ ...prev, opacity: 0 }));
+  };
+
+  return (
+    <motion.div
+      ref={cardRef}
+      initial={{ opacity: 0, y: 25 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay: idx * 0.08 }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      onClick={onSelect}
+      style={{
+        transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+        transition: 'transform 0.15s ease-out',
+      }}
+      className="group relative rounded-3xl overflow-hidden glass-card border border-white/10 hover:border-[#FF4D2D]/40 cursor-pointer flex flex-col justify-between shadow-xl"
+    >
+      {/* Specular Radial Glare Overlay */}
+      <div
+        className="pointer-events-none absolute inset-0 z-30 transition-opacity duration-300"
+        style={{
+          opacity: glare.opacity,
+          background: `radial-gradient(circle 280px at ${glare.x}px ${glare.y}px, rgba(255, 255, 255, 0.09), transparent 80%)`,
+        }}
+      />
+
+      {/* Top Bar inside card */}
+      <div className="p-6 sm:p-7 flex items-center justify-between border-b border-white/5 relative z-10">
+        <div>
+          <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 block mb-1">
+            {proj.subtitle}
+          </span>
+          <h3 className="font-display font-bold text-xl sm:text-2xl text-white group-hover:text-[#FF4D2D] transition-colors">
+            {proj.title}
+          </h3>
+        </div>
+        <span className="font-mono text-xs text-slate-400">
+          {proj.year}
+        </span>
+      </div>
+
+      {/* Project Image Preview */}
+      <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-900">
+        <img
+          src={proj.image}
+          alt={proj.title}
+          referrerPolicy="no-referrer"
+          className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 opacity-90 group-hover:opacity-100"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0A0D14]/80 via-transparent to-transparent pointer-events-none" />
+
+        {/* Badge */}
+        <div className="absolute top-4 right-4 z-10">
+          <span className="px-3.5 py-1.5 rounded-full text-xs font-sans font-semibold uppercase tracking-wider bg-black/75 text-white backdrop-blur-md border border-white/15">
+            {proj.badge}
+          </span>
+        </div>
+      </div>
+
+      {/* Bottom Project Details & Tech Stack */}
+      <div className="p-6 sm:p-7 space-y-4 font-sans border-t border-white/5 relative z-10">
+        <p className="text-xs sm:text-sm text-slate-300 line-clamp-2 leading-relaxed">
+          {proj.description}
+        </p>
+
+        {/* Tech Stack Tags */}
+        {proj.techStack && (
+          <div className="flex flex-wrap gap-2 pt-1">
+            {proj.techStack.map((tech) => (
+              <span
+                key={tech}
+                className="px-2.5 py-1 rounded bg-white/5 border border-white/10 text-[11px] font-mono text-slate-300 group-hover:border-white/20 transition-colors"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+        )}
+
+        {/* Metric & Arrow CTA */}
+        <div className="pt-3 border-t border-white/5 flex items-center justify-between">
+          <div className="flex items-center gap-1.5 text-xs font-mono text-[#FF4D2D]">
+            <CheckCircle2 className="w-3.5 h-3.5 text-[#FF4D2D] shrink-0" />
+            <span className="truncate">{proj.metrics}</span>
+          </div>
+          <motion.div
+            whileHover={{ scale: 1.15 }}
+            className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center shrink-0 group-hover:bg-[#FF4D2D] transition-colors"
+          >
+            <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-0.5 transition-transform" />
+          </motion.div>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
 export const FolioProjects: React.FC<FolioProjectsProps> = ({ onContact, isStandalonePage = false }) => {
   const [activeFilter, setActiveFilter] = useState<string>('All Deployments (6)');
   const [selectedProjectModal, setSelectedProjectModal] = useState<FolioProject | null>(null);
@@ -51,93 +177,34 @@ export const FolioProjects: React.FC<FolioProjectsProps> = ({ onContact, isStand
             <button
               key={tab}
               onClick={() => setActiveFilter(tab)}
-              className={`px-5 py-2.5 rounded-full transition-all duration-200 cursor-pointer ${
+              className={`relative px-5 py-2.5 rounded-full transition-all duration-300 cursor-pointer overflow-hidden ${
                 isActive
-                  ? 'bg-[#FF4D2D] text-white font-semibold shadow-[0_0_20px_rgba(255,77,45,0.4)]'
-                  : 'glass-pill text-slate-300 hover:text-white hover:border-white/20'
+                  ? 'text-white font-semibold shadow-[0_0_25px_rgba(255,77,45,0.45)]'
+                  : 'glass-pill text-slate-300 hover:text-white hover:border-white/25'
               }`}
             >
-              {tab}
+              {isActive && (
+                <motion.div
+                  layoutId="activeProjectFilter"
+                  className="absolute inset-0 bg-gradient-to-r from-[#FF5533] to-[#FF3D18] rounded-full -z-10"
+                  transition={{ type: 'spring', stiffness: 350, damping: 30 }}
+                />
+              )}
+              <span className="relative z-10">{tab}</span>
             </button>
           );
         })}
       </div>
 
-      {/* 2-Column Bento Project Cards Grid */}
+      {/* 2-Column Bento Project Cards Grid with 3D Tilt Effect */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-24">
         {filteredProjects.map((proj, idx) => (
-          <motion.div
+          <TiltProjectCard
             key={proj.id}
-            initial={{ opacity: 0, y: 25 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: idx * 0.1 }}
-            onClick={() => setSelectedProjectModal(proj)}
-            className="group rounded-3xl overflow-hidden glass-card border border-white/10 cursor-pointer flex flex-col justify-between"
-          >
-            {/* Top Bar inside card */}
-            <div className="p-6 sm:p-7 flex items-center justify-between border-b border-white/5">
-              <div>
-                <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 block mb-1">
-                  {proj.subtitle}
-                </span>
-                <h3 className="font-display font-bold text-xl sm:text-2xl text-white group-hover:text-[#FF4D2D] transition-colors">
-                  {proj.title}
-                </h3>
-              </div>
-              <span className="font-mono text-xs text-slate-400">
-                {proj.year}
-              </span>
-            </div>
-
-            {/* Project Image Preview */}
-            <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-900">
-              <img
-                src={proj.image}
-                alt={proj.title}
-                referrerPolicy="no-referrer"
-                className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 opacity-90 group-hover:opacity-100"
-              />
-              {/* Badge */}
-              <div className="absolute top-4 right-4">
-                <span className="px-3.5 py-1.5 rounded-full text-xs font-sans font-semibold uppercase tracking-wider bg-black/70 text-white backdrop-blur-md border border-white/15">
-                  {proj.badge}
-                </span>
-              </div>
-            </div>
-
-            {/* Bottom Project Details & Tech Stack */}
-            <div className="p-6 sm:p-7 space-y-4 font-sans border-t border-white/5">
-              <p className="text-xs sm:text-sm text-slate-300 line-clamp-2 leading-relaxed">
-                {proj.description}
-              </p>
-
-              {/* Tech Stack Tags */}
-              {proj.techStack && (
-                <div className="flex flex-wrap gap-2 pt-1">
-                  {proj.techStack.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-2.5 py-1 rounded bg-white/5 border border-white/10 text-[11px] font-mono text-slate-300"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              )}
-
-              {/* Metric & Arrow CTA */}
-              <div className="pt-3 border-t border-white/5 flex items-center justify-between">
-                <div className="flex items-center gap-1.5 text-xs font-mono text-[#FF4D2D]">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#FF4D2D] shrink-0" />
-                  <span className="truncate">{proj.metrics}</span>
-                </div>
-                <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center shrink-0 group-hover:bg-[#FF4D2D] transition-colors">
-                  <ArrowRight className="w-4 h-4 text-white" />
-                </div>
-              </div>
-            </div>
-          </motion.div>
+            proj={proj}
+            idx={idx}
+            onSelect={() => setSelectedProjectModal(proj)}
+          />
         ))}
       </div>
 
@@ -170,37 +237,43 @@ export const FolioProjects: React.FC<FolioProjectsProps> = ({ onContact, isStand
         </div>
       </div>
 
-      {/* Work With Us Banner as seen in video */}
-      <div className="rounded-3xl glass-card p-8 sm:p-14 text-center border border-white/10 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-[#FF4D2D]/10 to-transparent pointer-events-none" />
-        <span className="font-mono text-xs uppercase tracking-wider text-[#FF4D2D] block mb-3">
-          INFRASTRUCTURE &amp; HIRING
-        </span>
-        <h2 className="font-display font-extrabold text-3xl sm:text-5xl text-white tracking-tight mb-4">
-          Need Resilient DevOps or Cloud Migration?
-        </h2>
-        <p className="font-sans text-sm sm:text-base text-slate-300 max-w-xl mx-auto mb-8 leading-relaxed">
-          Whether you need end-to-end CI/CD automation, Docker containerization, Linux performance tuning, or a full-time DevOps engineer on your team, let&apos;s talk.
-        </p>
-        <div className="flex flex-wrap items-center justify-center gap-4">
-          <button
-            onClick={onContact}
-            className="coral-btn inline-flex items-center gap-3 px-8 py-4 rounded-full text-xs font-semibold uppercase tracking-wider font-sans group shadow-xl"
-          >
-            <span>Initiate Technical Discussion</span>
-            <div className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-1 transition-transform">
-              <ArrowRight className="w-3.5 h-3.5 text-white" />
-            </div>
-          </button>
+      {/* Work With Us Banner with VFX Border Beam */}
+      <div className="border-beam-container shadow-2xl">
+        <div className="rounded-[1.45rem] bg-[#0A0D14]/92 p-8 sm:p-14 text-center border border-white/10 relative overflow-hidden z-10 backdrop-blur-2xl">
+          <div className="absolute inset-0 bg-gradient-to-r from-[#FF4D2D]/12 to-transparent pointer-events-none" />
+          <span className="font-mono text-xs uppercase tracking-wider text-[#FF4D2D] block mb-3">
+            INFRASTRUCTURE &amp; HIRING
+          </span>
+          <h2 className="font-display font-extrabold text-3xl sm:text-5xl text-white tracking-tight mb-4">
+            Need Resilient DevOps or Cloud Migration?
+          </h2>
+          <p className="font-sans text-sm sm:text-base text-slate-300 max-w-xl mx-auto mb-8 leading-relaxed">
+            Whether you need end-to-end CI/CD automation, Docker containerization, Linux performance tuning, or a full-time DevOps engineer on your team, let&apos;s talk.
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <motion.button
+              whileHover={{ scale: 1.04, y: -2 }}
+              whileTap={{ scale: 0.97 }}
+              onClick={onContact}
+              className="coral-btn inline-flex items-center gap-3 px-8 py-4 rounded-full text-xs font-semibold uppercase tracking-wider font-sans group shadow-xl cursor-pointer"
+            >
+              <span>Initiate Technical Discussion</span>
+              <div className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-1 transition-transform">
+                <ArrowRight className="w-3.5 h-3.5 text-white" />
+              </div>
+            </motion.button>
 
-          <a
-            href="/Livingston_Peter_DevOps_Resume.doc"
-            download="Livingston_Peter_DevOps_Resume.doc"
-            className="glass-pill inline-flex items-center gap-2 px-6 py-4 rounded-full text-xs font-semibold font-sans text-slate-200 hover:text-white hover:border-white/25 transition-all"
-          >
-            <Download className="w-4 h-4 text-[#FF4D2D]" />
-            <span>Download Resume (.doc)</span>
-          </a>
+            <motion.a
+              whileHover={{ scale: 1.04, y: -2 }}
+              whileTap={{ scale: 0.97 }}
+              href="/Livingston_Peter_DevOps_Resume.doc"
+              download="Livingston_Peter_DevOps_Resume.doc"
+              className="glass-pill inline-flex items-center gap-2 px-6 py-4 rounded-full text-xs font-semibold font-sans text-slate-200 hover:text-white hover:border-white/25 transition-all cursor-pointer"
+            >
+              <Download className="w-4 h-4 text-[#FF4D2D]" />
+              <span>Download Resume (.doc)</span>
+            </motion.a>
+          </div>
         </div>
       </div>
 
